@@ -115,21 +115,22 @@ for (var i = 0; i < api_call.length; i++) {
   // If a stream doesn't exist, then get display_name from the json[i].
   // SKIP any streams that are undefined, but keep the nulls:  null==offline
   if (!api_call[i].stream && api_call[i].stream !== undefined) {
-    $(".streamList").append(
-      "<div class='rowContainer'>\
-      <div class='streamInfo'>\
-      <img src='http://via.placeholder.com/100x100'>" + api_call[i].display_name
-      + "</div>\
-      <div class='streamStatus' id='offline'>OFFLINE</div></div>"
-      );
-  }
-  else {
+// Cannot use the API call that's specified in the anchor tag. A user key must be available, so it is set to refresh the page
+$(".streamList").append(
+  "<div class='rowContainer'>\
+  <div class='streamInfo'>\
+  <a href=" + /*api_call[i]._links.channel*/ "'#' target='_blank'><img src='http://via.placeholder.com/100x100'>" + api_call[i].display_name + "</a></div>\
+  <div class='streamStatus' id='offline'>OFFLINE</div></div>"
+  );
+}
+else {
     // If the stream DOES exist, grab the display_name from the json.stream.display_name key.
     $(".streamList").append(
       "<div class='rowContainer'>\
-      <div class='streamInfo'><img src=" + api_call[i].stream.logo +  ">" +
-      api_call[i].stream.display_name + "</div><div class='streamStatus' id='online'>" + 
-      api_call[i].stream.status + "</></div>"
+      <div class='streamInfo'><a href=" + api_call[i].stream.url + "/ target='_blank'><img src=" + api_call[i].stream.logo +  ">" +
+      api_call[i].stream.display_name + "</a></div><div class='streamStatus' id='online'>" + 
+      api_call[i].stream.status + "</div></div>"
       );
   }
 }
+
